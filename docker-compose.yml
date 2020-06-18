@@ -5,7 +5,8 @@ services:
     volumes:
         - .:/usr/src/service
     working_dir: /usr/src/service
-    command: npm run start
+    command: node server
     ports:
-        - 3000:3000
+        - 3001:3001
+    container_name: recipe_server
     tty: true

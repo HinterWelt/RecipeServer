@@ -5,11 +5,12 @@ services:
     volumes:
       - .:/usr/src/service
     working_dir: /usr/src/service
+    container_name: recipe_server
 
   install:
     extends:
       service: base
-    command: bash -c "npm i && npm install -g sass && npm run build"
+    command: bash -c "npm i && npm install express"
   build:
     extends:
       service: base
