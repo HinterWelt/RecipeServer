@@ -1,5 +1,7 @@
 /* jshint indent: 2 */
 
+const { dish } = require(".");
+
 module.exports = function(sequelize, DataTypes) {
   return sequelize.define('Dish', {
     RecipeID: {
@@ -94,4 +96,7 @@ module.exports = function(sequelize, DataTypes) {
     tableName: 'Dish',
     timestamps: false
   });
+
+  //return Dish;
+
 };

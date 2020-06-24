@@ -10,7 +10,11 @@ services:
   install:
     extends:
       service: base
-    command: bash -c "npm i && npm install express"
+    command: bash -c "npm i && npm install express && npm install -save sequelize-cli sequelize mysql2 @types/sequelize bootstrap react-router-dom axios body-parser cors"
+  build_sequelize:
+    extends:
+      service: base
+    command: bash -c "npm install --save sequelize-cli && npm install sequelize mysql2 @types/sequelize --save"
   build:
     extends:
       service: base

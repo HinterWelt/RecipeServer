@@ -15,4 +15,6 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'ShelfLifeTypes'
   });
+  
+  //return ShelfLifeTypes;
 };

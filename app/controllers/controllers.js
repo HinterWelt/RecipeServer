@@ -1,5 +1,6 @@
 const db = require("../models");
 const { DB } = require("../config/db.config");
+const ShelfLifeTypes = require("../models/ShelfLifeTypes");
 const Dish = db.dish;
 const Op = db.Sequelize.Op;
 
@@ -51,10 +52,11 @@ exports.create = (req, res) => {
 
 // Retrieve all Dishes from the database.
 exports.findAll = (req, res) => {
-  const title = req.query.Name;
-  var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
-
-  Dish.findAll({ where: condition })
+  
+  Dish.findAll({  
+   where: { isActive: true} ,  
+   order: [['Name', 'ASC']]
+  })
     .then(data => {
       res.send(data);
     })
@@ -64,7 +66,8 @@ exports.findAll = (req, res) => {
           err.message || "Some error occurred while retrieving recipes."
       });
     });
-};
+
+  };
 
 // Find a single Dish with an id
 exports.findOne = (req, res) => {
@@ -77,6 +80,24 @@ exports.findOne = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message: "Error retrieving Recipe with id=" + id
+      });
+    });
+
+};
+
+// Find a Recipe with name or fragment of the name entered. Could be a list.
+exports.findByName = (req, res) => {
+  const name = req.query.Name;
+  var condition = name ? { Name: { [Op.like]: `%${name}%` } } : null;
+
+  Dish.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving recipes."
       });
     });
 
