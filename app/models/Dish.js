@@ -3,7 +3,7 @@
 const { dish } = require(".");
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('Dish', {
+  var Dish = sequelize.define('Dish', {
     RecipeID: {
       type: DataTypes.INTEGER(6).UNSIGNED,
       allowNull: false,
@@ -46,7 +46,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     ShelfLifeID: {
       type: DataTypes.INTEGER(11),
-      allowNull: true
+      allowNull: true,
+      references: {         
+        model: 'ShelfLifeTypes',
+        key: 'ShelfLifeID'
+      }
     },
     Yield: {
       type: DataTypes.FLOAT,
@@ -97,6 +101,10 @@ module.exports = function(sequelize, DataTypes) {
     timestamps: false
   });
 
-  //return Dish;
+  Dish.associate = function(models) {
+    Dish.belongsTo(models.ShelfLifeTypes, {foreignKey: 'ShelfLifeID', as: 'ShelfLifeTypes'})
+  };
+  
+  return Dish;
 
 };

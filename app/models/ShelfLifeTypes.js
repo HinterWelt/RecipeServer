@@ -1,7 +1,7 @@
 /* jshint indent: 2 */
 
 module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('ShelfLifeTypes', {
+  var ShelfLifeTypes = sequelize.define('ShelfLifeTypes', {
     ShelfLifeID: {
       type: DataTypes.INTEGER(6),
       allowNull: false,
@@ -15,6 +15,8 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     tableName: 'ShelfLifeTypes'
   });
-  
-  //return ShelfLifeTypes;
+  ShelfLifeTypes.associate = function(models) {
+    ShelfLifeTypes.hasMany(models.Dish, {foreignKey:'ShelfLifeID'})
+  };
+  return ShelfLifeTypes;
 };

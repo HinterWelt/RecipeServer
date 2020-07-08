@@ -52,10 +52,10 @@ exports.create = (req, res) => {
 
 // Retrieve all Dishes from the database.
 exports.findAll = (req, res) => {
-  
-  Dish.findAll({  
+  return Dish.findAll({  
    where: { isActive: true} ,  
-   order: [['Name', 'ASC']]
+   order: [['Name', 'ASC']],
+   include: [{model: ShelfLifeTypes}]
   })
     .then(data => {
       res.send(data);
